@@ -1,19 +1,35 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
+
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div id='app'>
+    <div id="'nav'">
+      <router-link to="/users">List of Users</router-link> | 
+      <router-link to="/home">Home</router-link> | 
+      <router-link to="/about">About</router-link> | 
+      <button class="btn btn-success btn-block full-width" @click="logout">Logout</button>
+    </div>
+    <router-view/>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
+<script>
+import {getAuth, signOut} from 'firebase/auth'
+export default {
+  name: 'App',
+  methods: {
+    logout (){
+      const auth = getAuth()
+      signOut(auth)
+      .then(()=>{
+        this.$router.replace('/signin')
+      })
+      .catch((error)=>{
+        alert(error.message)
+      })
+    }
+  },
 
+}
+</script>
 <style scoped>
 .logo {
   height: 6em;
