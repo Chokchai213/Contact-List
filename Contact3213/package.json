@@ -17,7 +17,7 @@
     "jquery": "^3.7.1",
     "popper.js": "^1.16.1",
     "vue": "^3.4.21",
-    "vue-fomantic-ui": "^0.24.0",
+    "vue-fomantic-ui": "^0.23.0",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {

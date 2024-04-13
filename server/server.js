@@ -4,21 +4,23 @@ var cors = require('cors')
 app = express()
 app.use(cors())
 
+const dbName = "ContactList"
+
 port = process.env.PORT || 5000
-mongoose = require('mongoose')
-User = require('./models/userListModel')
+const mongoose = require('mongoose')
 bodyParser = require('body-parser')
 mongoose.Promise = global.Promise
-mongoose.connect(process.env.MONGODB_CONNECTION_STRING, function(error){
-    if(error) throw error
-    console.log('Connected to MongoDB');
+mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {dbName : dbName}).then((res) => {
+    console.log('Sucessfully Connected to MONGODB');
+}).catch((err) => {
+    console.log('err :: ',err)
 })
 
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(bodyParser.json())
 
-var routes = require('./routes/userListRoutes')
-routes(app)
+app.use("/login", require("./routes/loginRoute"));
+app.use("/contact", require("./routes/contactRoute"));
 
 app.listen(port, () => {
     console.log("Server Running on Port :: ",port)

@@ -1,8 +1,9 @@
-<script setup></script>
+<script setup>
+</script>
 
 <template>
   <nav
-    class="navbar navbar-expand-lg navbar-light bg-light"
+    class="navbar navbar-expand-lg navbar-light bg-custom" 
     style="
       box-shadow: 5px 5px 10px rgb(18 169 142 / 22%);
       border: 1px solid rgb(18 169 142 / 22%);
@@ -11,7 +12,7 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="/home">
         <img
-          src="./assets/vue.svg"
+          src="./components/icon/vue.png"
           alt=""
           width="30"
           height="24"
@@ -22,7 +23,8 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/home"
-            >Contact List</a
+            style="color: white;"
+            >Contacts</a
           >
         </li>
       </ul>
@@ -34,6 +36,7 @@
         role="button"
         data-bs-toggle="dropdown"
         aria-expanded="false"
+        style="color: white;"
       >
         <i class="user icon" style="visibility: visible"></i>
       </a>
@@ -52,7 +55,11 @@
 
 <style scoped>
 header {
-  line-height: 1.5;
+  line-height: 2.5;
+}
+
+.bg-custom {
+  background-color: black;
 }
 
 .logo {
@@ -64,7 +71,6 @@ header {
   header {
     display: flex;
     place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
   }
 
   .logo {

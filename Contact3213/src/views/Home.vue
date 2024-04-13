@@ -8,26 +8,24 @@
           placeholder="Search for..."
           v-model="search"
         />
-        <RouterLink to="/contact" style="padding: 0px">
+        <RouterLink to="/contact" >
           <button class="ui orange button" type="button">+Add</button>
         </RouterLink>
       </div>
     </div>
   </div>
   <br />
-
-  <div class="ui link cards">
+  <sui-card-group :items-per-row="6">
+    
+    <div class="ui link cards">
     <div
       class="card"
       v-for="item in filterUsers"
-      style="box-shadow: 8px 8px 10px 1px rgb(242 113 28 / 11%)"
+      style="box-shadow: 8px 8px 10px 1px rgb(242 113 28 / 11%); display: flex;"
     >
-      <div class="image">
-        <img :src="item.imageUrl" />
-      </div>
-      <div class="content">
-        <div class="header">{{ `${item.firstname} ${item.lastname}` }}</div>
-
+    <sui-card>
+        <sui-image :src="item.imageUrl" />
+        <sui-card-header>{{ `${item.firstname} ${item.lastname}` }}</sui-card-header>
         <div class="description">
           <p>Mobile : {{ item.mobile }}</p>
           <p>Email : {{ item.email }}</p>
@@ -45,9 +43,12 @@
             Delete
           </button>
         </div>
-      </div>
+    </sui-card>
+      
     </div>
   </div>
+  </sui-card-group>
+ 
 </template>
 
 <script>
@@ -73,7 +74,6 @@ export default {
   },
   computed: {
     filterUsers() {
-      // Filter users based on search term
       return this.Users.filter((user) => {
         return (
           user.firstname.match(this.search) || user.lastname.match(this.search)
@@ -82,7 +82,6 @@ export default {
     },
   },
   mounted() {
-    // Fetch users from API on component mount
     axios
       .get("http://127.0.0.1:5000/contact")
       .then((res) => {

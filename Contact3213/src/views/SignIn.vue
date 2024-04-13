@@ -58,7 +58,7 @@ export default {
         })
 
         .then((res) => {
-          console.log(res.data);
+          console.log('res.data :: ',res.data);
           const token = res.data.token;
 
           // Save the token to localStorage
@@ -67,6 +67,7 @@ export default {
           this.$router.replace("/home");
         })
         .catch((err) => {
+          console.log('err :: ',err)
           alert(err.response.data.message);
         });
     },
