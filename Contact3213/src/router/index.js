@@ -1,96 +1,66 @@
-import {createRouter, createWebHistory} from 'vue-router'
-import Users from '../views/Users.vue'
-import Home from '../views/Home.vue'
-import About from '../views/About.vue'
-import AddUser from '../views/AddUser.vue'
-import UpdateUser from '../views/UpdateUser.vue'
-import SignIn from '../views/SignIn.vue'
-import SignUp from '../views/SignUp.vue'
-import {getAuth} from 'firebase/auth'
+import { createRouter, createWebHistory } from "vue-router";
 
-const routerHistory = createWebHistory()
+import SignIn from "../views/SignIn.vue";
+import Home from "../views/Home.vue";
+import Contact from "../views/AddContact.vue";
+import UpdateContact from "../views/UpdateContact.vue";
+
+const routerHistory = createWebHistory();
 
 const routes = [
-    {
-        path: '/',
-        redirect: '/signin'
+  {
+    path: "/",
+    redirect: "/signin",
+  },
+  {
+    path: "/signin",
+    name: "SignIn",
+    component: SignIn,
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: Home,
+    meta: {
+      requiresAuth: true,
     },
-    {
-        path: '/:catchAll(.*)',
-        redirect: '/signin'
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: Contact,
+    meta: {
+      requiresAuth: true,
     },
-    {
-        path: '/users',
-        name: 'Users',
-        component: Users,
-        meta: {
-            requiresAuth: true
-        }
+  },
+  {
+    path: "/updatecontact/:userId",
+    name: "UpdateContact",
+    component: UpdateContact,
+    meta: {
+      requiresAuth: true,
     },
-    {
-        path: '/home',
-        name: 'Home',
-        component: Home,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/about',
-        name: 'About',
-        component: About
-        //component: () => import('../views/About.vue')
-    },
-    {
-        path: '/adduser',
-        name: 'AddUser',
-        component: AddUser,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/userupdate/:userId',
-        name: 'UpdateUser',
-        component: UpdateUser,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/signin',
-        name: 'SignIn',
-        component: SignIn
-    },
-    {
-        path: '/signup',
-        name: 'SignUp',
-        component: SignUp
-    }
-]
+  },
+  {
+    path: "/:catchAll(.*)",
+    redirect: "/signin",
+  },
+];
 
-const router = createRouter(
-    {
-        history: routerHistory,
-        routes
-    }
-)
-
-router.beforeEach((to, from, next)=>{
-    const currentUser = getAuth().currentUser
-    const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-    if(requiresAuth && !currentUser){
-        console.log('You are not authorized to access this area')
-        next('signin')
-    } else if (!requiresAuth && currentUser){
-        console.log('You are authorized to access this area')
-        next('users')
+const router = createRouter({
+  history: routerHistory,
+  routes,
+});
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const token = localStorage.getItem("token");
+    if (token) {
+      next();
     } else {
-        next()
+      next("/login");
     }
-})
-
-
-
-export default router
-
+  } else {
+    next();
+  }
+});
+export default router;

@@ -1,26 +1,27 @@
+require("dotenv").config();
 var express = require('express')
 var cors = require('cors')
-
 app = express()
 app.use(cors())
 
 port = process.env.PORT || 5000
 mongoose = require('mongoose')
-User = require('./api/models/userListModel')
+User = require('./models/userListModel')
 bodyParser = require('body-parser')
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb+srv://contactlistmongoadmin:U3GtMomftm37LGBy@contactlistcluster0.tlwmmqu.mongodb.net/?retryWrites=true&w=majority', function(error){
+mongoose.connect(process.env.MONGODB_CONNECTION_STRING, function(error){
     if(error) throw error
-    console.log('Successfully connected');
+    console.log('Connected to MongoDB');
 })
 
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(bodyParser.json())
 
-var routes = require('./api/routes/userListRoutes')
+var routes = require('./routes/userListRoutes')
 routes(app)
 
-app.listen(port)
+app.listen(port, () => {
+    console.log("Server Running on Port :: ",port)
+})
 
-console.log('User List started on : '+ port)
 
