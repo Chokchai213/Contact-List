@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="padding: 15px;">
     <div class="center-content">
       <form>
         <div class="field field-in">
@@ -108,11 +108,11 @@ export default {
   mounted() {
     axios
       .get(
-        "http://127.0.0.1:5000/contact/" + this.$route.params.userId,
+        "http://localhost:5000/contacts/" + this.$route.params.userId,
         this.Contact
       )
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
         this.Contact = res.data;
       })
       .catch((error) => {
@@ -123,7 +123,7 @@ export default {
     async updateContact() {
       try {
         const response = await axios.post(
-          "http://127.0.0.1:5000/contact/" + this.$route.params.userId,
+          "http://localhost:5000/contacts/" + this.$route.params.userId,
           {
             cid: this.Contact.cid,
             firstname: this.Contact.firstname,

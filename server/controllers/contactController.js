@@ -38,15 +38,15 @@ const createContact = async (req, res) => {
       mobile: mobile,
       email: lowerEmail || "",
       facebook: facebook || "",
-      imageUrl: imageUrl || "",
+      imageUrl: imageUrl || "https://semantic-ui-vue.github.io/static/images/avatar/large/matthew.png",
     });
-    console.log(newContact);w
+    console.log(newContact);
     if (!!!newContact) {
       return res.status(400).json({ message: "Can't create new contact" });
     }
 
     await newContact.save();
-    return res.status(200).json({ message: "Create contact successful" });
+    return res.status(200).json({ message: "Create new contact :: "+firstname});
   } catch (err) {
     console.log(err);
     return res.status(400).json({ error: err });
@@ -72,8 +72,8 @@ const getContact = async (req, res) => {
     const findContact = await Contacts.findById({
       _id: id,
     });
-
-    if (!!!findContact) {
+    
+    if (!findContact) {
       return res.status(400).json({ message: "Can not find a contact" });
     }
     return res.status(200).json(findContact);

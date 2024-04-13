@@ -53,7 +53,7 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (token) {
       next();
     } else {

@@ -18,15 +18,14 @@ const login = async (req, res) => {
       password: hashPass,
     });
 
-
     if (!!!findUser) {
       return res.status(400).json({ message: "Invalid username or password" });
     }
 
     const token = jwt.sign(
       { userId: findUser._id, username: findUser.username },
-      process.env.SECRET, // Replace with your actual secret key
-      { expiresIn: "1d" } // Token expiration time
+      process.env.SECRET, 
+      { expiresIn: "1d" }
     );
     return res.status(200).json({ message: "login successful", token: token });
   } catch (err) {

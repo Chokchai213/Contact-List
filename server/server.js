@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true}))
 app.use(bodyParser.json())
 
 app.use("/login", require("./routes/loginRoute"));
-app.use("/contact", require("./routes/contactRoute"));
+app.use("/contacts", require("./routes/contactRoute"));
 
 app.listen(port, () => {
     console.log("Server Running on Port :: ",port)

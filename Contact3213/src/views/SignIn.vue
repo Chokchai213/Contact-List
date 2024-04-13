@@ -52,7 +52,7 @@ export default {
   methods: {
     signIn() {
       axios
-        .post("http://127.0.0.1:5000/login", {
+        .post("http://localhost:5000/login", {
           username: this.username,
           password: this.password,
         })
@@ -61,8 +61,7 @@ export default {
           console.log('res.data :: ',res.data);
           const token = res.data.token;
 
-          // Save the token to localStorage
-          localStorage.setItem("token", token);
+          sessionStorage.setItem("token", token);
 
           this.$router.replace("/home");
         })

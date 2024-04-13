@@ -106,7 +106,7 @@ export default {
   methods: {
     async addContact() {
       try {
-        const response = await axios.post("http://127.0.0.1:5000/contact", {
+        const response = await axios.post("http://localhost:5000/contacts", {
           cid: this.cid,
           firstname: this.firstname,
           lastname: this.lastname,
