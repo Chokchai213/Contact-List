@@ -24,12 +24,12 @@ const login = async (req, res) => {
 
     const token = jwt.sign(
       { userId: findUser._id, username: findUser.username },
-      process.env.SECRET, 
+      process.env.SECRET,
       { expiresIn: "1d" }
     );
     return res.status(200).json({ message: "login successful", token: token });
   } catch (err) {
-    console.log('err :: ',err)
+    console.log('err :: ', err)
     return res.status(400).json({ error: err });
   }
 };
